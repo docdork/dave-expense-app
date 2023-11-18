@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -15,7 +15,22 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+  IonGrid,
+  IonCol,
+  IonRow,
+  IonModal,
+  IonButtons,
+  IonInput,
+  IonItem,
+  IonList,
 } from '@ionic/angular/standalone';
+
+import { addIcons } from 'ionicons';
+import { add, camera } from 'ionicons/icons';
+
+import { PhotoService } from '../services/photo.service';
+
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-home',
@@ -38,12 +53,38 @@ import {
     IonFab,
     IonFabButton,
     IonIcon,
+    IonGrid,
+    IonCol,
+    IonRow,
+    IonModal,
+    IonButtons,
+    IonInput,
+    IonItem,
+    IonList,
   ],
 })
 export class HomePage {
-  constructor() {}
+  constructor(public photoService: PhotoService) {
+    addIcons({ add, camera });
+  }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 
   public expenseContentList = [
+    {
+      description: 'Expense Description',
+      amount: 21.99,
+      picture: 'https://ionicframework.com/docs/img/demos/thumbnail.svg',
+    },
+    {
+      description: 'Another Expense Description',
+      amount: 17.99,
+      picture: 'https://ionicframework.com/docs/img/demos/thumbnail.svg',
+    },
     {
       description: 'Expense Description',
       amount: 21.99,
@@ -79,4 +120,8 @@ export class HomePage {
       },
     },
   ];
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
 }
